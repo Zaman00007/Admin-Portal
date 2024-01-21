@@ -26,9 +26,9 @@ async function login() {
         }
 
         const data = await responsePost.json();
-        console.log(data);
         if (data._id) {
             console.log('Authentication successful');
+            window.location.href = "user_dashboard.html";
         } else {
             console.error('Authentication failed');
         }

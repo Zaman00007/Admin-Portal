@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
         }
         const token = jwt.sign({ id: existingUser._id, isAdmin: existingUser.isAdmin }, process.env.JWT); 
   
-        const {password, isAdmin, ...rest }=  existingUser._doc;
+        const {password, ...rest }=  existingUser._doc;
 
   
        res.cookie("access_token", token, {

@@ -21,16 +21,14 @@ async function login() {
             },
             body: JSON.stringify({ username, password }),
         });
-        if (!responsePost.ok) {
-            throw new Error(`HTTP error! Status: ${responsePost.status}`);
-        }
+        
 
         const data = await responsePost.json();
-        console.log(data);
-        if (data._id) {
+        if (data.isAdmin) {
             console.log('Authentication successful');
+            window.location.href = "dashboard.html";
         } else {
-            console.error('Authentication failed');
+            console.error('Authentication failed. You are not Admin!!!');
         }
     } catch (error) {
         console.error('Error during authentication:', error);
