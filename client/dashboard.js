@@ -1,5 +1,5 @@
 
-async function fetchAndRenderUsers() {
+document.addEventListener('DOMContentLoaded', async function () {
     try {
       const response = await fetch('http://localhost:8800/admin/', {
         method: 'GET',
@@ -17,7 +17,11 @@ async function fetchAndRenderUsers() {
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
-  }
+  })
+
+function viewAll(){
+    window.location.href = "view_all.html";
+}
   
 //   function renderUsers(users) {
 //     const userListContainer = document.getElementById('userList');
@@ -39,7 +43,8 @@ function renderUsers(users) {
   
     usersToDisplay.forEach(user => {
       const listItem = document.createElement('li');
-      listItem.textContent = `Username: ${user.username}, Gender: ${user.gender}, Age: ${user.age}`;
+    //   listItem.textContent = `Username: ${user.username}, Gender: ${user.gender}, Age: ${user.age}`;
+    listItem.textContent = `Id: ${user._id}`;
       userListContainer.appendChild(listItem);
     });
   }
@@ -66,7 +71,7 @@ function renderUsers(users) {
       console.log('User created successfully');
   
       
-      fetchAndRenderUsers();
+    //   fetchAndRenderUsers();
     } catch (error) {
       console.error('Error creating user:', error);
     }
