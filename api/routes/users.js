@@ -3,12 +3,13 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import multer from "multer";
 import jwt from "jsonwebtoken";
+import { verifyToken,verifyAdmin } from "../utils/verifyToken.js";
  
 
 const router = express.Router();
 const upload = multer();
 
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
     try {
         const users = await User.find();
         res.status(200).json(users);
@@ -62,8 +63,8 @@ router.post('/login', async (req, res) => {
        res.cookie("access_token", token, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
-        // secure: true,
-        // sameSite: "none",
+        secure: true,
+        sameSite: "none",
        }).status(200).json({ ...rest })
       
     } catch (error) {
@@ -71,5 +72,15 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  router.get("/check", verifyToken, (req, res, next) => {
+    res.json({message : "Congo you are logged in!!!"});
+  })
+//   router.get("/logout", verifyToken, (req, res, next) => {
+//     res.clearCookie("access_token").json({message : "You are logged out!!!"});
+//   })
+router.get("/checkAdmin", verifyAdmin, (req, res, next) => {
+    res.json({message : "Congo you are Admin !!!"});
+  })
 
 export default router;
