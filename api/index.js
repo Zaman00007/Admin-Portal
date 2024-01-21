@@ -10,11 +10,12 @@ import multer from "multer";
 import path from "path";
 
 const app = express();
+app.use(cors());
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors());
+// app.use(cors());
 
 app.use((err, req, res, next) => {
     console.log("Hello from middleware");
@@ -25,6 +26,7 @@ app.use((err, req, res, next) => {
 
 app.get("/", (req, res) => {
   res.json({message : "Hello! I am Backend!"});
+  console.log("Hello from backend");
 });
 
 app.use("/admin", adminRoute);

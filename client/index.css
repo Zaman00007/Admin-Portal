@@ -1,0 +1,91 @@
+.auth-section{
+ 
+    width: 40%;
+    height: 800px;
+    top: -1px;
+    position: fixed;
+    right: 0px;
+    /* border:1px; */
+    border-style: solid ;
+    border-color: black;
+    color: rgb(255, 255, 255, 1);
+}
+
+.font{
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-top: 200px;
+    margin-bottom: 60px;
+    letter-spacing: 0.32px;
+    text-align: center;
+    color: rgb(100, 100, 100, 1);
+}
+.bar{
+
+    width: auto;
+    margin-left: 100px;
+    height: 40px;
+    background-color: rgb(255, 255, 255, 1);
+    margin-right: 100px;
+    margin-bottom: 20px;
+    font-family: Poppins;
+    font-size: 25px;
+    border-color: rgb(205, 205, 205, 1);
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.submit-button{
+    width: auto;
+    margin-left: 100px;
+    height: 40px;
+    background-color: rgb(5, 0, 255, 1);
+    margin-right: 100px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgb(255, 255, 255, 1);
+    border: none;
+    cursor: pointer;
+
+}
+
+.Logo {
+    width: 60%;
+    height: 800px;
+    top: -1px;
+    position: fixed;
+    left: 0px;
+    border: 1px solid black; 
+    background: linear-gradient(180deg, rgba(5, 2, 250, 1) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.logo{
+    display: flex;
+    width: 40%;
+    margin-left: 30%;
+    height: 20%;
+    margin-top: 36%;
+    border: solid;
+    background-color: rgb(255, 255, 255, 1);
+    justify-content: center;
+}
+
+.logo-font{
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+    text-align: center;
+    color: rgb(5, 2, 250, 1);
+}

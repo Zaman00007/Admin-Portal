@@ -9,7 +9,7 @@ import { verifyToken,verifyAdmin } from "../utils/verifyToken.js";
 const router = express.Router();
 const upload = multer();
 
-router.get("/", verifyToken, async (req, res) => {
+router.get("/", verifyAdmin, async (req, res) => {
     try {
         const users = await User.find();
         res.status(200).json(users);
