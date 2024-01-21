@@ -21,21 +21,7 @@ app.use((err, req, res, next) => {
   next();
 });
 
-const storage = multer.diskStorage({
-    destination: './uploads/', // Specify the directory where uploaded files will be stored
-    filename: function (req, file, callback) {
-        // Create a unique filename by appending the current timestamp to the original name
-        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
 
-const upload = multer({ storage: storage });
-
-// Route to handle file upload
-app.post('/upload', upload.single('image'), (req, res) => {
-    // 'image' is the field name in the form for file input
-    res.json({ message: 'File uploaded successfully' });
-});
 
 app.get("/", (req, res) => {
   res.json({message : "Hello! I am Backend!"});

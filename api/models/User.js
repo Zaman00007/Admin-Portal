@@ -26,6 +26,9 @@ const UserSchema = new mongoose.Schema({
         min: 14,
         max: 85,
     },
+    imagePath: {
+        type: String,  
+    },
 });
 
 export default mongoose.model("User", UserSchema);
