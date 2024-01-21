@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- <script src="admin.js"></script> -->
     <meta charset="UTF-8" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="dashboard.css" />
@@ -23,7 +22,10 @@
       </div>
       <div class="view_user">
         <h2 class="font">View User</h2>
+        <button onclick="viewUsers()" class="submit-button">View Users</button>
+        <ul id="userList"></ul>
       </div>
     </div>
+    <script src="dashboard.js"></script>
   </body>
 </html>

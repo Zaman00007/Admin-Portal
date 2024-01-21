@@ -4,12 +4,16 @@ import bcrypt from "bcrypt";
 import multer from "multer";
 import jwt from "jsonwebtoken";
 import { verifyToken,verifyAdmin } from "../utils/verifyToken.js";
+import cors from "cors";
+
+const app = express();
+app.use(cors());
  
 
 const router = express.Router();
 const upload = multer();
 
-router.get("/", verifyAdmin, async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const users = await User.find();
         res.status(200).json(users);
