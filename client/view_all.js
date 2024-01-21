@@ -45,9 +45,24 @@ async function renderUsers() {
 }
 
 
-function deleteUser(userId) {
-    console.log(`Deleting user with ID: ${userId}`);
+async function deleteUser(userId) {
+    try {
+        const response = await fetch(`http://localhost:8800/admin/deleteUser/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log(`User with ID ${userId} deleted successfully`);
+        await renderUsers();
+    } catch (error) {
+        console.error(`Error deleting user with ID ${userId}:`, error);
+    }
 }
 
 
