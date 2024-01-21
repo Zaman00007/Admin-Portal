@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import multer from "multer";
+import jwt from "jsonwebtoken";
  
 
 const router = express.Router();
@@ -41,6 +42,34 @@ router.post('/signup', upload.single('profilePic'), async (req, res) => {
     }
 });
 
-
+router.post('/login', async (req, res) => {
+    try {
+        const { username } = req.body;
+        
+        const existingUser = await User.findOne( {username} );
+        if (!existingUser) {
+            return res.status(400).json({ message: 'User does not exist' });
+        }
+        const isValidPassword = bcrypt.compareSync(req.body.password, existingUser.password);
+        if (!isValidPassword) {
+            return res.status(400).json({ message: 'Invalid password' });
+        }
+        const token = jwt.sign({ id: existingUser._id, isAdmin: existingUser.isAdmin }, process.env.JWT); 
+  
+        const {password, isAdmin, ...rest }=  existingUser._doc;
+        
+  
+       res.cookie("access_token", token, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        // secure: true,
+        // sameSite: "none",
+       }).status(200).json({ ...rest })
+      
+    } catch (error) {
+        console.error('Error during signup', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 export default router;
