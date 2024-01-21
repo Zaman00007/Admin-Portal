@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/users.js";
+import authRoute from "./routes/auth.js";
 import cors from "cors";
 
 const app = express();
@@ -18,10 +19,12 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello! I am Backend!");
+  res.json({message : "Hello! I am Backend!"});
 });
 
 app.use("/users", userRoute);
+
+app.use("/auth", authRoute);
 
 
 const connect=async()=>{
