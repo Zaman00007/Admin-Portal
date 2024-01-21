@@ -6,6 +6,10 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
+router.get("/check", verifyToken, (req, res, next) => {
+    res.json({message : "Congo you are logged in!!!"});
+  })
+
 const storage = multer.diskStorage({
     destination: './uploads/',
     filename: function (req, file, callback) {
