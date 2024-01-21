@@ -61,4 +61,15 @@ router.put("/updateUser/:id", verifyAdmin, async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }});
 
+router.put("/acceptProfilePic/:id",  async (req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(req.params.id, {
+            $set: {accept: true}
+        });
+        res.status(200).json({ message: "User updated successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }});
+
 export default router;

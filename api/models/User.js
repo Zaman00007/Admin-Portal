@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema({
     imagePath: {
         type: String,  
     },
+    accept: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 export default mongoose.model("User", UserSchema);
