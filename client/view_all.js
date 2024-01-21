@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', async function() {
+    await renderUsers();
+
+    
+});
+
+
+
 async function renderUsers() {
     const userTableBody = document.querySelector('#userTable tbody');
 
@@ -9,6 +17,7 @@ async function renderUsers() {
                 'Content-Type': 'application/json',
             },
         });
+        console.log(response);
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
