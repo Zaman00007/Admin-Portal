@@ -8,7 +8,7 @@ import { verifyToken,verifyAdmin } from "../utils/verifyToken.js";
 const router = express.Router();
 const upload = multer();
 
-router.post('/signup', upload.single('profilePic'), async (req, res) => {
+router.post('/signup', verifyAdmin, upload.single('profilePic'), async (req, res) => {
     try {
         const { username, password, gender, age } = req.body;
         const salt = bcrypt.genSaltSync(10);

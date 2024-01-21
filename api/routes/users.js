@@ -1,10 +1,11 @@
 import express from "express";
-import User from "../models/User.js";
-import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 import multer from "multer";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import { verifyToken,verifyAdmin } from "../utils/verifyToken.js";
- 
+import User from "../models/User.js";
 
 const router = express.Router();
 const upload = multer();
@@ -19,13 +20,15 @@ router.get("/", verifyToken, async (req, res) => {
     }
     });
 
-router.get("/check", verifyToken, (req, res, next) => {
-    res.json({message : "Congo you are logged in!!!"});
-  })
-
-
-router.get("/checkAdmin", verifyAdmin, (req, res, next) => {
-    res.json({message : "Congo you are Admin !!!"});
-  })
+router.put("/updateUser/:id", verifyToken, async (req, res) => {
+    try{
+        const user = await User.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }});
 
 export default router;
+

@@ -2,9 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import userRoute from "./routes/users.js";
+import adminRoute from "./routes/admin.js";
 import authRoute from "./routes/auth.js";
 import cors from "cors";
+import userRoute from "./routes/users.js";
+import multer from "multer";
+import path from "path";
 
 const app = express();
 dotenv.config();
@@ -18,13 +21,31 @@ app.use((err, req, res, next) => {
   next();
 });
 
+const storage = multer.diskStorage({
+    destination: './uploads/', // Specify the directory where uploaded files will be stored
+    filename: function (req, file, callback) {
+        // Create a unique filename by appending the current timestamp to the original name
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Route to handle file upload
+app.post('/upload', upload.single('image'), (req, res) => {
+    // 'image' is the field name in the form for file input
+    res.json({ message: 'File uploaded successfully' });
+});
+
 app.get("/", (req, res) => {
   res.json({message : "Hello! I am Backend!"});
 });
 
-app.use("/users", userRoute);
+app.use("/admin", adminRoute);
 
 app.use("/auth", authRoute);
+
+app.use("/user", userRoute);
 
 
 const connect=async()=>{
