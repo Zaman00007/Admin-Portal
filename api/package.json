@@ -1,0 +1,27 @@
+{
+  "name": "Admin-Portal",
+  "version": "1.0.0",
+  "description": "This is an Admin Portal Backend to handle users and crop images.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zaman00007/Admin-Portal.git"
+  },
+  "author": "Shahid Zaman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zaman00007/Admin-Portal/issues"
+  },
+  "homepage": "https://github.com/Zaman00007/Admin-Portal#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.2",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.0"
+  },
+  "type": "module"
+}
