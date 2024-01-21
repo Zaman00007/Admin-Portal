@@ -22,7 +22,8 @@ async function login() {
             body: JSON.stringify({ username, password }),
         });
         
-
+        
+        
         const data = await responsePost.json();
         if (data.isAdmin) {
             console.log('Authentication successful');

@@ -1,26 +1,27 @@
-// async function fetchAndRenderUsers() {
-//     try {
-//       const response = await fetch('http://localhost:8800/user', {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       });
+
+async function fetchAndRenderUsers() {
+    try {
+      const response = await fetch('http://localhost:8800/admin/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
   
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! Status: ${response.status}`);
-//       }
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
   
-//       const users = await response.json();
-//       renderUsers(users);
-//     } catch (error) {
-//       console.error('Error fetching user data:', error);
-//     }
-//   }
+      const users = await response.json();
+      renderUsers(users);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  }
   
 //   function renderUsers(users) {
 //     const userListContainer = document.getElementById('userList');
-//     userListContainer.innerHTML = ''; // Clear existing list
+//     userListContainer.innerHTML = ''; 
   
 //     users.forEach(user => {
 //       const listItem = document.createElement('li');
@@ -28,6 +29,22 @@
 //       userListContainer.appendChild(listItem);
 //     });
 //   }
+
+function renderUsers(users) {
+    const userListContainer = document.getElementById('userList');
+    userListContainer.innerHTML = '';
+  
+    
+    const usersToDisplay = users.slice(0, 2);
+  
+    usersToDisplay.forEach(user => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `Username: ${user.username}, Gender: ${user.gender}, Age: ${user.age}`;
+      userListContainer.appendChild(listItem);
+    });
+  }
+
+
   
   async function create() {
     try {
@@ -48,8 +65,8 @@
   
       console.log('User created successfully');
   
-      // After creating the user, fetch and render the updated user list
-    //   fetchAndRenderUsers();
+      
+      fetchAndRenderUsers();
     } catch (error) {
       console.error('Error creating user:', error);
     }
