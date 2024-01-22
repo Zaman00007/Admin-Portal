@@ -16,10 +16,15 @@
 
         try {
             await updateProfilePicture(userId, image);
+
+            
+            const newProfilePic = document.getElementById('newProfilePic');
+            newProfilePic.src = URL.createObjectURL(image);
         } catch (error) {
             console.error('Error updating profile picture:', error);
         }
     }
+    document.addEventListener('DOMContentLoaded', displayAcceptStatus(userId));
 </script>
 
 <body>
@@ -30,6 +35,12 @@
         <input type="file" id="image" accept="image/*">
 
         <button onclick="updateProfile()">Update Profile Picture</button>
+
+      
+        <div class="profile-picture-container">
+            <h3>Profile Picture:</h3>
+            <img src="./default-photo.jpg" alt="New Profile Picture" id="newProfilePic">
+        </div>
     </div>
 </body>
 </html>

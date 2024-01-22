@@ -40,7 +40,7 @@ router.delete("/deleteUser/:id", async (req, res) => {
     }
     });
 
-router.get("/getUser/:id", verifyAdmin, async (req, res) => {
+router.get("/getUser/:id",  async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         res.status(200).json(user);
