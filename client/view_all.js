@@ -26,12 +26,13 @@ async function renderUsers() {
             row.innerHTML = `
                 <td>${user._id}</td>
                 <td>${user.username}</td>
-                <td><img src="${user.imagePath || 'default-photo.jpg'}" alt="User Photo"></td>
+                <td><img src="${user.imagePath ? `${user.imagePath}` : 'default-photo.jpg'}" alt="User Photo"></td>
                 <td>
-                    <button onclick="deleteUser('${user._id}')">Delete</button>
-                    <button onclick="acceptProfilePic('${user._id}')">Accept</button>
+                    <button onclick="deleteUser('${user._id}')" class="" >Delete</button>
+                    <button onclick="acceptProfilePic('${user._id}')" class="accept" >Accept</button>
                 </td>
             `;
+            console.log(user.imagePath);
             userTableBody.appendChild(row);
         });
     } catch (error) {
