@@ -1,19 +1,8 @@
 async function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
     try {
-
-        const responseGet = await fetch('http://localhost:8800/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        console.log(responseGet.json());
-
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        console.log(username, password);
-
-    
         const responsePost = await fetch('http://localhost:8800/auth/login', {
             method: 'POST',
             headers: {
@@ -21,6 +10,7 @@ async function login() {
             },
             body: JSON.stringify({ username, password }),
         });
+
         if (!responsePost.ok) {
             throw new Error(`HTTP error! Status: ${responsePost.status}`);
         }
@@ -28,7 +18,8 @@ async function login() {
         const data = await responsePost.json();
         if (data._id) {
             console.log('Authentication successful');
-            window.location.href = "user_dashboard.html";
+
+            window.location.href = `user_dashboard.html?userId=${data._id}`;
         } else {
             console.error('Authentication failed');
         }
@@ -36,3 +27,9 @@ async function login() {
         console.error('Error during authentication:', error);
     }
 }
+
+
+document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault(); 
+    login();
+});

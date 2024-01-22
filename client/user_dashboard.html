@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <script src="./user_dashboard.js"></script>
+    <link rel="stylesheet" href="user_dashboard.css">
+</head>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('userId');
+
+    async function updateProfile() {
+        const profilePicInput = document.getElementById('image');
+        const image = profilePicInput.files[0];
+
+        try {
+            await updateProfilePicture(userId, image);
+        } catch (error) {
+            console.error('Error updating profile picture:', error);
+        }
+    }
+</script>
+
+<body>
+    <div class="profile-update-form">
+        <h2>Update Your Profile Picture</h2>
+
+        <label for="profilePic">Profile Picture:</label>
+        <input type="file" id="image" accept="image/*">
+
+        <button onclick="updateProfile()">Update Profile Picture</button>
+    </div>
+</body>
+</html>
