@@ -21,7 +21,7 @@ async function renderUsers() {
 
         userTableBody.innerHTML = '';
 
-        users.slice(0, 2).forEach(user => {
+        users.slice(0, 8).forEach(user => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${user._id}</td>

@@ -42,7 +42,13 @@ async function displayAcceptStatus(userId) {
         console.log(user.username);
         const acceptStatus = user.accept;
         console.log(acceptStatus);
-        
+        if (acceptStatus) {
+    
+            document.getElementById('acceptStatus').textContent = 'Accepted by admin';
+        } else {
+            
+            document.getElementById('acceptStatus').textContent = 'Not accepted by admin';
+        }
        
     } catch (error) {
         console.error('Error getting user:', error);
