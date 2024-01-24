@@ -13,7 +13,7 @@ app.use(cors());
 const router = express.Router();
 const upload = multer();
 
-router.get("/", async (req, res) => {
+router.get("/", verifyAdmin, async (req, res) => {
     try {
         const users = await User.find();
         res.status(200).json(users);
@@ -30,7 +30,7 @@ router.get("/checkAdmin", verifyAdmin, (req, res, next) => {
     res.json({message : "Congo you are Admin !!!"});
   })
 
-router.delete("/deleteUser/:id", async (req, res) => {
+router.delete("/deleteUser/:id",  async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: "User deleted successfully" });
@@ -40,7 +40,7 @@ router.delete("/deleteUser/:id", async (req, res) => {
     }
     });
 
-router.get("/getUser/:id",  async (req, res) => {
+router.get("/getUser/:id", verifyAdmin,  async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         res.status(200).json(user);

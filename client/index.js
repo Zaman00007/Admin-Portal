@@ -1,21 +1,38 @@
-
-
-document.addEventListener('DOMContentLoaded', async function () {
+async function login() {
     try {
-        const response = await fetch('http://localhost:8800/', {
+
+        const responseGet = await fetch('http://localhost:8800/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
         });
+        console.log(responseGet.json());
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Response from server:', data);
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        console.log(username, password);
+
+    
+        const responsePost = await fetch('http://localhost:8800/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        
+        const data = await responsePost.json();
+        document.cookie  = `access_token=${data.token};`
+        
+        if (data.isAdmin) {
+            console.log('Authentication successful');
+            window.location.href = "dashboard.html";
         } else {
-            console.error('Error:', response.status, response.statusText);
+            console.error('Authentication failed. You are not Admin!!!');
         }
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('Error during authentication:', error);
     }
-});
+}

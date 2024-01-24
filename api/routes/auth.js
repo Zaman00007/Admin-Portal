@@ -8,7 +8,7 @@ import { verifyToken,verifyAdmin } from "../utils/verifyToken.js";
 const router = express.Router();
 const upload = multer();
 
-router.post('/signup',  upload.single('profilePic'), async (req, res) => {
+router.post('/signup', verifyAdmin, upload.single('profilePic'), async (req, res) => {
     try {
         const { username, password, gender, age } = req.body;
         const salt = bcrypt.genSaltSync(10);
@@ -47,15 +47,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ id: existingUser._id, isAdmin: existingUser.isAdmin }, process.env.JWT); 
   
         const {password, ...rest }=  existingUser._doc;
-
-  
-       res.cookie("access_token", token, {
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        secure: true,
-        sameSite: "none",
-       }).status(200).json({ ...rest })
-      
+      return res.status(200).json({token: token, isAdmin: existingUser.isAdmin})
     } catch (error) {
         console.error('Error during signup', error);
         res.status(500).json({ error: 'Internal Server Error' });

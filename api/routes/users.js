@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.put('/upload/:id', async (req, res) => {
+router.put('/upload/:id', verifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
         upload.single('image')(req, res, async (err) => {
