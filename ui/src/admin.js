@@ -37,7 +37,7 @@ function Admin() {
 
     
     useEffect( () => {
-        
+        viewAll();
     }, []);
 
     const create = async () => {
