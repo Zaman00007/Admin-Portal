@@ -1,40 +1,49 @@
-import React, { useEffect } from 'react';
-import { Route, Redirect,useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, Redirect, useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Admin from './admin';
+import Manage from './Manage'; // Import the Manage component
 
 const PrivateRoute = ({ path, exact }) => {
   const token = Cookies.get('token');
   const history = useHistory();
+  const [admin, setAdmin] = useState(false);
 
-  const verifyAdmin = async () => { 
-    const response = await fetch('http://localhost:8800/admin/checkAdmin', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            if (!response.ok) {
-                history.push('/Unauthorized'); 
-            }
-        };
+  const verifyAdmin = async () => {
+    try {
+      const response = await fetch('http://localhost:8800/admin/checkAdmin', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        history.push('/Unauthorized');
+      } else {
+        setAdmin(true);
+      }
+    } catch (error) {
+      console.error('Error verifying admin:', error);
+      history.push('/Unauthorized');
+    }
+  };
 
   useEffect(() => {
     if (!token) {
-      
-      history.push('/Unauthorized'); 
+      history.push('/Unauthorized');
     }
-    if(token){
+    if (token) {
       verifyAdmin();
     }
   }, [token, history]);
 
   return token ? (
     <Route path={path} exact={exact}>
-      <Admin />
+      {path === '/admin' ? <Admin /> : path === '/Manage' ? <Manage /> : null}
     </Route>
   ) : (
-    <Redirect to="/login" />
+    <Redirect to="/Unauthorized" />
   );
 };
 

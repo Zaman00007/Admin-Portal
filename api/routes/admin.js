@@ -30,7 +30,7 @@ router.get("/checkAdmin", verifyAdmin, (req, res, next) => {
     res.json({message : "Congo you are Admin !!!"});
   })
 
-router.delete("/deleteUser/:id",  async (req, res) => {
+router.delete("/deleteUser/:id", verifyAdmin, async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: "User deleted successfully" });

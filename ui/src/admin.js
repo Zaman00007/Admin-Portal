@@ -7,6 +7,10 @@ function Admin() {
     const [userList, setUserList] = useState([]);
     const history = useHistory();
 
+    const Manage = async () => {
+        history.push('/Manage');
+    };
+
     const viewAll = async () => {
         try {
             const token = Cookies.get('token');
@@ -81,7 +85,7 @@ function Admin() {
                 </div>
                 <div className="view_user">
                     <h2 className="font">View User</h2>
-                    <button type="button" className="submit-button">View Users</button>
+                    <button onClick={Manage} type="button" className="submit-button">View Users</button>
                     <ul className="List" id="userList">
                         {/* Display fetched users */}
                         {userList.slice(-2).map(user => (
